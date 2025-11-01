@@ -34,6 +34,19 @@ public:
 		}
 	}
 
+	// Перегрузка оператора ->
+	T* operator->()
+	{
+		if (!data)
+		{
+			throw std::runtime_error("Доступ к пустому указателю");
+		}
+		else
+		{
+			return data;
+		}
+	}
+
 	// Запрещены оператор присваивания и конструктор копирования
 	my_Unique_poiner& operator=(const my_Unique_poiner& other) = delete;
 	my_Unique_poiner(const my_Unique_poiner& other) = delete;
