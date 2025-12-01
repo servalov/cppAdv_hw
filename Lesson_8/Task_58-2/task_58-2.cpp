@@ -113,6 +113,51 @@ class big_integer
 			}
 			return result;
 		}
+
+		big_integer operator*(int num)
+		{
+			big_integer result{ "0" };
+			big_integer new_number{ "" };
+			if (num == 0)
+			{
+				return result;
+			}
+
+			int num1 = static_cast<int>(num_str.length() - 1);
+			int num2 = static_cast<int>(std::floor(std::log10(std::abs(num)))) + 1;
+
+			std::string c_str, str{};
+			int _num = num;
+			for (int i = num2; i >= 0; --i)
+			{
+				str += (i == num2) ? "" : "0";
+				c_str = str;
+				int a = _num % 10;
+				int unit = 0;
+				
+				for (int j = num1; j >= 0; --j)
+				{
+					int b = num_str[j] - '0';
+					int c = a * b + unit;
+
+					unit = c / 10;
+					c_str += std::to_string(c % 10);
+				}
+
+				if (unit > 0)
+				{
+					c_str += std::to_string(unit);
+				}
+
+				std::reverse(c_str.begin(), c_str.end());
+
+				new_number.num_str = c_str;
+				result.num_str = (result + new_number).num_str;
+
+				_num /= 10;
+			}
+			return result;
+		}
 };
 
 int main()
@@ -129,6 +174,13 @@ int main()
 
 	auto result_multiply = number1 * number2;
 	std::cout << "Произведение чисел 1 и 2 равно " << result_multiply.get_num_str() << std::endl;
+
+	auto result_multiply_2 = number1 * 12;
+	std::cout << "Произведение "<< number1.get_num_str()<<" на 12"<<" равно " << result_multiply_2.get_num_str() << std::endl;
+
+	int num{ 125 };
+	auto result_multiply_3 = number1 * num;
+	std::cout << "Произведение " << number1.get_num_str() << " на " <<num<< " равно " << result_multiply_3.get_num_str() << std::endl;
 
 	return EXIT_SUCCESS;
 }
