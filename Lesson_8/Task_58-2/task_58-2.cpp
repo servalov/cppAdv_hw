@@ -158,6 +158,11 @@ class big_integer
 			}
 			return result;
 		}
+
+		friend std::ostream& operator<<(std::ostream& ostream, const big_integer& num)
+		{
+			return (ostream<<num.num_str);
+		}
 };
 
 int main()
@@ -176,11 +181,11 @@ int main()
 	std::cout << "Произведение чисел 1 и 2 равно " << result_multiply.get_num_str() << std::endl;
 
 	auto result_multiply_2 = number1 * 12;
-	std::cout << "Произведение "<< number1.get_num_str()<<" на 12"<<" равно " << result_multiply_2.get_num_str() << std::endl;
+	std::cout << "Произведение "<< number1.get_num_str()<<" на 12"<<" равно " << result_multiply_2 << std::endl;
 
 	int num{ 125 };
 	auto result_multiply_3 = number1 * num;
-	std::cout << "Произведение " << number1.get_num_str() << " на " <<num<< " равно " << result_multiply_3.get_num_str() << std::endl;
+	std::cout << "Произведение " << number1.get_num_str() << " на " <<num<< " равно " << result_multiply_3 << std::endl;
 
 	return EXIT_SUCCESS;
 }
